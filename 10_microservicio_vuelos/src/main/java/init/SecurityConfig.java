@@ -59,8 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//y para acceder la lista de cursos, tendrán que estar autenticados
 		
 		
-		.antMatchers(HttpMethod.GET,"/Vuelos/*").authenticated()	
-		.antMatchers(HttpMethod.PUT,"/ActualizarVuelo/*").authenticated()	
+		.antMatchers(HttpMethod.GET,"/Vuelos/*").anonymous()	
+		.antMatchers(HttpMethod.PUT,"/ActualizarVuelo/*").anonymous()	
 		.and()
 		.httpBasic(); //forma de solicitar los credenciales
 	}

@@ -3,6 +3,8 @@ package service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,9 +37,16 @@ public class ReservaServiceImpl implements ReservaService {
 	
 	public void reservar(Reserva reserva,  int plazasVuelo) {
 		
-		reservasDao.save(reserva);
-		template.put(urlBase + "ActualizarVuelo/" + plazasVuelo + "/" + reserva.getVuelo(), Vuelo.class);
+		ResponseEntity<String> response = template.exchange(urlBase + "ActualizarVuelo/" + plazasVuelo + "/" + reserva.getVuelo(), HttpMethod.PUT,null // new HttpEntity(dato_cuerpo)
+				,String.class);
 		
+		// Solo guardamos la reserva si se ha actualizado el número de plazas de los vuelos
+		String cuerpo = response.getBody();
+		if(cuerpo.equals("true")) {
+			reservasDao.save(reserva);
+		}
+//		template.put(urlBase + "ActualizarVuelo/" + plazasVuelo + "/" + reserva.getVuelo(), Vuelo.class);
+		reservasDao.save(reserva);
 
 	}
 

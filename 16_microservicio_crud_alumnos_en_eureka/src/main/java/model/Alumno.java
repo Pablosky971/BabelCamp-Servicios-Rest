@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,20 +12,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="vuelos")
+@Table(name="alumnos")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-public class Vuelo {
-	
+public class Alumno {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idvuelo;
-	private String company;
-	private String fecha;
-	private double precio;
-	private int plazas;
-	
-
+	private int idAlumno;
+	private String nombre;
+	private String curso;
+	private double nota;
 }

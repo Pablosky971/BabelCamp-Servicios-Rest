@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//y para acceder la lista de cursos, tendrán que estar autenticados
 		
 		
-		.antMatchers(HttpMethod.GET,"/Hoteles/*").authenticated()	
+		.antMatchers(HttpMethod.GET,"/Hoteles/*").anonymous()
 		.and()
 		.httpBasic(); //forma de solicitar los credenciales
 	}

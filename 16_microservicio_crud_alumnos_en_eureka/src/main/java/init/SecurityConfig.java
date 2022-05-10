@@ -1,10 +1,7 @@
 package init;
 
-import javax.sql.DataSource;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,19 +12,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth
-//        .inMemoryAuthentication()
-//        .withUser("user1")
-//          .password("{noop}user1") //lo de {noop} se pone para no obligar a usar mecanismo de encriptación
-//          .roles("USER")
-//          .and()
-//        .withUser("admin")
-//          .password("{noop}admin")
-//          .roles("USER", "ADMIN")
-//          .and()
-//        .withUser("user2")
-//          .password("{noop}user2")
-//          .roles("OPERATOR");
+		auth
+        .inMemoryAuthentication()
+        .withUser("user1")
+          .password("{noop}user1") //lo de {noop} se pone para no obligar a usar mecanismo de encriptación
+          .roles("USER")
+          .and()
+        .withUser("admin")
+          .password("{noop}admin")
+          .roles("USER", "ADMIN")
+          .and()
+        .withUser("user2")
+          .password("{noop}user2")
+          .roles("OPERATOR");
 		
 		/*lo siguiente sería para el caso de que
 		 * quisiéramos encriptar la password:
@@ -44,13 +41,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	          .password("{bcrypt}"+new BCryptPasswordEncoder().encode("admin"))
 	          .roles("USER", "ADMIN");
 		 */
-		//la siguiente configuración será para el caso de 
-		 //usuarios en una base de datos
-		 auth.jdbcAuthentication().dataSource(dataSource())
-     	.usersByUsernameQuery("select user, pwd, enabled"
-         	+ " from users where user=?")
-     	.authoritiesByUsernameQuery("select user, rol "
-         	+ "from roles where user=?");
+		/*la siguiente configuración será para el caso de 
+		 * usuarios en una base de datos
+		 * auth.jdbcAuthentication().dataSource(dataSource)
+        	.usersByUsernameQuery("select username, password, enabled"
+            	+ " from users where username=?")
+        	.authoritiesByUsernameQuery("select username, authority "
+            	+ "from authorities where username=?");
+		 */
 	}
 
 	@Override
@@ -60,19 +58,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//solo los miembros del rol admin podrán realizar altas
 		//y para acceder la lista de cursos, tendrán que estar autenticados
 		
-		
-		.antMatchers(HttpMethod.GET,"/Reservas").authenticated()	
+		.antMatchers(HttpMethod.POST,"/Alumno").hasRole("ADMIN")
+		.antMatchers(HttpMethod.PUT,"/Alumno").hasRole("ADMIN")
+		.antMatchers(HttpMethod.DELETE,"/Alumno/*").hasRole("OPERATOR")
+		.antMatchers(HttpMethod.GET,"/Alumno/*").authenticated()	
 		.and()
 		.httpBasic(); //forma de solicitar los credenciales
-	}
-
-	private DataSource dataSource() {
-		DriverManagerDataSource ds=new DriverManagerDataSource();
-		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://localhost:3306/springsecurity?serverTimezone=UTC");
-		ds.setUsername("root");
-		ds.setPassword("");
-		return ds;
 	}
 
 

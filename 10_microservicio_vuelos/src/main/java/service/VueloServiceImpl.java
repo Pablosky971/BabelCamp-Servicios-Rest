@@ -32,14 +32,15 @@ public class VueloServiceImpl implements VueloService {
 	}
 
 	@Transactional
-	public void actualizarVuelo(int plazas, int idVuelo) {
+	public boolean actualizarVuelo(int plazas, int idVuelo) {
 	
 		Vuelo v = vueloPorId(idVuelo);
 		
-		if(v.getPlazas() > plazas) {
+		if(v.getPlazas() >= plazas) {
 			vuelosDao.actualizarVuelo(plazas, idVuelo);
+			return true;
 		} 
-		
+		return false;
 	}
 
 

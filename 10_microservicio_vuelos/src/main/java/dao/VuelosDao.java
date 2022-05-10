@@ -11,7 +11,7 @@ import model.Vuelo;
 public interface VuelosDao extends JpaRepository<Vuelo, Integer> {
 	
 	@Modifying
-	@Query("update Vuelo v set v.plazas= v.plazas-?1 where v.idVuelo=?2")
+	@Query("update Vuelo v set v.plazas= v.plazas-?1 where v.idvuelo=?2")
 	void actualizarVuelo(int plazas, int idVuelo);
 
 }
