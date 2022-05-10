@@ -1,8 +1,6 @@
 package service;
 
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,16 +12,18 @@ import model.Vuelo;
 
 @Service
 public class ReservaServiceImpl implements ReservaService {
-
+	
+	
 	RestTemplate template;
 	String urlBase="http://localhost:9001/";
 
 	ReservasDao reservasDao;
 	
 	
-	public ReservaServiceImpl(@Autowired ReservasDao reservasDao) {
+	public ReservaServiceImpl(@Autowired ReservasDao reservasDao, @Autowired RestTemplate template) {
 		super();
 		this.reservasDao = reservasDao;
+		this.template = template;
 	}
 
 

@@ -38,9 +38,7 @@ public class VueloServiceImpl implements VueloService {
 		
 		if(v.getPlazas() > plazas) {
 			vuelosDao.actualizarVuelo(plazas, idVuelo);
-		} else {
-			vuelosDao.actualizarVuelo(v.getPlazas(), idVuelo);
-		}
+		} 
 		
 	}
 
