@@ -21,6 +21,36 @@ public class ProductoServiceImpl implements ProductoService {
 		this.productosDao = productosDao;
 		
 	}
+
+	@Override
+	public List<Producto> buscarSeccion(String seccion) {
+		
+		return productosDao.findBySeccion(seccion);
+	}
+
+	@Override
+	public void alta(Producto p) {
+		productosDao.save(p);
+		
+	}
+
+
+
+	@Override
+	public void eliminar(int idProducto) {
+		productosDao.deleteById(idProducto);
+			
+			
+		}
+		
+		
+	
+
+	@Override
+	public Producto buscarProducto(int idProducto) {
+		
+		return productosDao.findById(idProducto).get();
+	}
 	
 	
 	

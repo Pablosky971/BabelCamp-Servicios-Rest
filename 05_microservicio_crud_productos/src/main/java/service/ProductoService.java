@@ -8,8 +8,7 @@ public interface ProductoService {
 	
 	List<Producto> buscarSeccion(String seccion);
 	void alta(Producto p);
-	void modificarPrecio(String nombre, double precioModificado);
-	void eliminar(String nombre);
+	void eliminar(int idProducto);
 	Producto buscarProducto(int idProducto);
 
 }

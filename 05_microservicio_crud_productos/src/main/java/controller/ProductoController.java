@@ -38,15 +38,11 @@ public class ProductoController {
 		return "alta";
 	}
 	
-	@PostMapping("ModificarPrecio")
-	public String modificarPrecio(@RequestParam("nombre") String nombre, @RequestParam("precio") double precio) {
-		productoService.modificarPrecio(nombre, precio);;
-		return "modificar";
-	}
+	
 	
 	@PostMapping("Eliminar")
-	public String eliminar(@RequestParam("nombre") String nombre) {
-		productoService.eliminar(nombre);
+	public String eliminar(@RequestParam("idProducto") int idProducto) {
+		productoService.eliminar(idProducto);
 		return "eliminar";
 	}
  	
