@@ -1,0 +1,26 @@
+<h1>Pedidos</h1>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>Número de pedido</th>
+      <th>Producto</th>
+      <th>Total</th>
+      <th>Fecha de pedido</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr *ngFor="let p of pedidos">
+      <td>{{p.idPedido}}</td>
+      <td>{{p.codigoProducto}}</td>
+      <td>{{p.total}}</td>
+      <td>{{p.fechaPedido}}</td>
+
+    </tr>
+  </tbody>
+
+  <button (click)="routeNuevoPedido()" value="Nuevo Pedido"></button>
+  
+</table>
+
+<router-outlet></router-outlet>

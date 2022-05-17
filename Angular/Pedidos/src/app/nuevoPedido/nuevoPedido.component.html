@@ -1,0 +1,13 @@
+
+
+<label for="producto"> Producto </label>
+<select name ="listaProductos" [(ngModel)]="producto">
+  <option *ngFor="let producto of listaProductos">
+    {{producto.producto}}
+  </option>
+</select>
+<label for="unidades"> Unidades: </label>
+<input type="number" name="unidades" [(ngModel)]="unidades">
+
+<input type="submit" value="Confirmar Pedido" (click)="pedido()">
+<input type="submit" value="Ver Pedido" (click)="volver()">
