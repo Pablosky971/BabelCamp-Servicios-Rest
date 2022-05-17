@@ -1,31 +1,15 @@
 package init;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import filter.JwtFilter;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
-	@Value("${clave}")
-	String clave;
-	
-	@Bean
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
-
-	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth
@@ -73,12 +57,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 		//solo los miembros del rol admin podrán realizar altas
 		//y para acceder la lista de cursos, tendrán que estar autenticados
-		.antMatchers(HttpMethod.POST,"/Alumno").hasRole("ADMIN")
-		.antMatchers(HttpMethod.PUT,"/Alumno").hasRole("ADMIN")
-		.antMatchers(HttpMethod.DELETE,"/Alumno/*").hasRole("OPERATOR")
-		.antMatchers(HttpMethod.GET,"/Alumno/*").authenticated()	
+		
+		
+		.antMatchers(HttpMethod.GET,"/Hoteles/*").anonymous()
 		.and()
-		.addFilter(new JwtFilter(authenticationManagerBean(),clave)); //forma de solicitar los credenciales
+		.httpBasic(); //forma de solicitar los credenciales
 	}
 
 
