@@ -41,7 +41,7 @@ public class PedidoServiceImpl implements PedidoService {
 		String cuerpo = response.getBody();
 		
 		if(cuerpo.equals("true")) {
-			double precio = template.getForObject(urlBase + "PrecioProducto/" + pedido.getCodigoProducto(), Double.class);
+			double precio = Double.parseDouble(template.getForObject(urlBase + "PrecioProducto/" + pedido.getCodigoProducto(), String.class));
 			pedido.setTotal(pedido.getUnidades() * precio);
 			pedido.setFechaPedido(new Date());
 			pedidosDao.save(pedido);

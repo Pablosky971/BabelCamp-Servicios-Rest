@@ -4,4 +4,9 @@ export class Pedido {
     unidades:number;
     total:number;
     fechaPedido:Date;
+
+
+    public toString() : string {
+        return JSON.stringify(this)
+    }
 }
